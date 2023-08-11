@@ -21,11 +21,15 @@ const userSchema = mongoose.Schema({
             type: Boolean,
             default: false,
         },
-        role: {
+        isAdmin: {
             type: String,
             enum: ['user', 'admin'],
             default: 'user',
         },
+        forgotPasswordToken: String,
+        forgotPasswordTokenExpire: Date,
+        verifyToken: String,
+        verifyTokenExpire: Date,
 });
 
 const User = mongoose.models.users || mongoose.model('users', userSchema);
