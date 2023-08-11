@@ -3,8 +3,7 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { on } from "events";
-import {toast} from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 export default function SignupPage() {
   const router = useRouter();
   const [user, setUser] = React.useState({
@@ -18,22 +17,25 @@ export default function SignupPage() {
     try {
       setLoading(true);
       const res = await axios.post("/api/users/signup", user);
-      
-      if (res.data.success) {
-        router.push("/login");
-      } else {
-        toast.error(res.data.message);
-      }
 
+      console.log(res.data);
+      toast("Signup successfull");
+
+      // router.push("/login");
     } catch (error: any) {
-      toast.error(error.message);
+      console.log(error.response.data);
+      toast.error(error.response.data);
+    } finally {
+      setLoading(false);
+      toast.success("Signup successfull");
     }
-    setLoading(false);
-    toast.success("Signup successfull");
-    toast.error("Signup failed");
   };
   useEffect(() => {
-    if (user.email.length>5 && user.password.length >8 && user.username.length > 3) {
+    if (
+      user.email.length > 5 &&
+      user.password.length > 8 &&
+      user.username.length > 3
+    ) {
       setButtonDisabeled(false);
     } else {
       setButtonDisabeled(true);
@@ -41,11 +43,14 @@ export default function SignupPage() {
   }, [user]);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 ">
+      
       <h1 className="text-2xl font-semibold">
         {loading ? "Loading..." : "Signup"}
       </h1>
       <hr />
-      <label htmlFor="username" className="mr-20">Username</label>
+      <label htmlFor="username" className="mr-20">
+        Username
+      </label>
       <input
         type="text"
         placeholder="username"
@@ -58,7 +63,7 @@ export default function SignupPage() {
         type="email"
         placeholder="email"
         name="email"
-        className="border-2 border-gray-500 rounded-md p-2 m-2"
+        className="border-2 border-gray-500 rounded-md p-2 m-2 text-left text-black"
         onChange={(e) => setUser({ ...user, email: e.target.value })}
       />
       <label htmlFor="password">Password</label>
@@ -66,7 +71,7 @@ export default function SignupPage() {
         type="password"
         placeholder="password"
         name="password"
-        className="border-2 border-gray-500 rounded-md p-2 m-2"
+        className="border-2 border-gray-500 rounded-md p-2 m-2 text-left text-black"
         onChange={(e) => setUser({ ...user, password: e.target.value })}
       />
       <button
@@ -75,6 +80,8 @@ export default function SignupPage() {
       >
         {buttonDisabeled ? "Please fill all fields" : "Signup"}
       </button>
+      <hr />
+      <p>Already have an account?</p>
       <Link href="/login">visit login page</Link>
     </div>
   );
