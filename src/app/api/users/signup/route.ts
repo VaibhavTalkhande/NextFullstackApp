@@ -7,7 +7,7 @@ connect()
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
-export async function POST(request: NextRequest, next: any) {
+export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
     const { username, email, password } = reqBody;
