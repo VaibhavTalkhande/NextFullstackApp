@@ -20,7 +20,7 @@
     "eslint-config-next": "13.4.13",
     "eslint-plugin-react-hooks": "^5.0.0-canary-98f3f14d2-20230818",
     "jsonwebtoken": "^9.0.1",
-    "mongoose": "^7.4.2",
+    "mongoose": "^7.4.3",
     "next": "^13.4.19",
     "nodemailer": "^6.9.4",
     "postcss": "8.4.27",
