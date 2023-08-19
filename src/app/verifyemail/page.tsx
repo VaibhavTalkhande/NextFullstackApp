@@ -1,3 +1,4 @@
+"use client";
 import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -9,6 +10,7 @@ export default function VerifyEmailPage() {
   const verifyUserEmail = async () => {
     try {
       await axios.post("/api/users/verifyemail", { token });
+      console.log("email verified");
       setVerified(true);
     } catch (error: any) {
       setError(true);
@@ -25,8 +27,8 @@ export default function VerifyEmailPage() {
     if (token.length > 0) {
       verifyUserEmail();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <h1 className="text-4xl">Verify Email</h1>
