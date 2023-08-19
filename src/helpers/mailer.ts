@@ -20,8 +20,8 @@ export const sendEmail = async({email, emailType, userId}:any) => {
             host: "sandbox.smtp.mailtrap.io",
             port: 2525,
             auth: {
-                user: "1798030602b292",
-                pass: "bb018e6730fff8"
+                user: process.env.NODEMAILER_AUTH_USER,
+                pass: process.env.NODEMAILER_AUTH_PASS
               //TODO: add these credentials to .env file
             }
           });
